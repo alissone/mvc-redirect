@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <script>
+    // Parse query parameters
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const type = params.get('type');
+
+    // Redirect to your app's custom scheme
+    const deepLink = `com.example.mvc://reset-password/auth/v1/?token=${token}&type=${type}`;
+    window.location.href = deepLink;
+
+    // Optional fallback
+    setTimeout(() => {
+      document.body.innerHTML = `<p>If you're not redirected, <a href="${deepLink}">click here</a>.</p>`;
+    }, 3000);
+  </script>
+</head>
+<body>
+  <p>Redirecting to app…</p>
+</body>
+</html>
