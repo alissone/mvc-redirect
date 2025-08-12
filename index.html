@@ -8,9 +8,10 @@
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     const type = params.get('type');
+    const env = params.get('env');
 
     // Redirect to your app's custom scheme
-    const deepLink = `com.example.mvc://reset-password/auth/v1/?token=${token}&type=${type}`;
+    const deepLink = `com.magicvalleycentral.mvcapp://reset-password/auth/v1/?token=${token}&type=${type}?env=${env}`;
     window.location.href = deepLink;
 
     // Optional fallback
