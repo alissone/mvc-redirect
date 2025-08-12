@@ -2,7 +2,247 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Redirecting…</title>
+  <title>Redirecting to Magic Valley Central</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 400px;
+      padding: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .logo::before {
+      content: "📱";
+      font-size: 2rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      animation: spin 1s linear infinite;
+      opacity: 0;
+      animation: spin 1s linear infinite, fadeInUp 0.8s ease 0.4s forwards;
+    }
+
+    .fallback-content {
+      display: none;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .open-app-btn {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .open-app-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+    }
+
+    .open-app-btn:active {
+      transform: translateY(0);
+    }
+
+    .open-app-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .open-app-btn:hover::before {
+      left: 100%;
+    }
+
+    .help-text {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    .background-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .shape:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      animation-delay: 0s;
+    }
+
+    .shape:nth-child(2) {
+      top: 70%;
+      right: 10%;
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 20px;
+      animation-delay: 2s;
+    }
+
+    .shape:nth-child(3) {
+      bottom: 20%;
+      left: 20%;
+      width: 60px;
+      height: 60px;
+      background: white;
+      transform: rotate(45deg);
+      animation-delay: 4s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+        max-width: 350px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .open-app-btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <div class="container">
+    <div class="logo"></div>
+    
+    <div class="redirecting-content">
+      <h1>Opening Magic Valley Central</h1>
+      <p class="subtitle">Please wait while we redirect you to the app...</p>
+      <div class="spinner"></div>
+    </div>
+
+    <div class="fallback-content">
+      <h1>Almost there!</h1>
+      <p class="subtitle">Click the button below to open the Magic Valley Central app</p>
+      
+      <a href="#" class="open-app-btn" id="openAppBtn">
+        🚀 Open App
+      </a>
+      
+      <p class="help-text">
+        Make sure you have the Magic Valley Central app installed on your device.
+      </p>
+    </div>
+  </div>
+
   <script>
     // Parse query parameters
     const params = new URLSearchParams(window.location.search);
@@ -10,17 +250,34 @@
     const type = params.get('type');
     const env = params.get('env');
 
-    // Redirect to your app's custom scheme
-    const deepLink = `com.magicvalleycentral.mvcapp://reset-password/auth/v1/?token=${token}&type=${type}?env=${env}`;
-    window.location.href = deepLink;
+    // Build the deep link URL
+    const deepLink = `com.magicvalleycentral.mvcapp://reset-password/auth/v1/?token=${encodeURIComponent(token || '')}&type=${encodeURIComponent(type || '')}&env=${encodeURIComponent(env || '')}`;
 
-    // Optional fallback
+    // Try immediate redirect
+    if (token && type) {
+      window.location.href = deepLink;
+    }
+
+    // Show fallback after 3 seconds
     setTimeout(() => {
-      document.body.innerHTML = `<p>If you're not redirected, <a href="${deepLink}">click here</a>.</p>`;
+      document.querySelector('.redirecting-content').style.display = 'none';
+      document.querySelector('.fallback-content').style.display = 'block';
+      
+      // Set up the manual button
+      document.getElementById('openAppBtn').href = deepLink;
     }, 3000);
+
+    // Optional: Try redirect again when button is clicked
+    document.getElementById('openAppBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = deepLink;
+      
+      // Show confirmation after attempting redirect
+      setTimeout(() => {
+        this.innerHTML = '✅ Redirect Attempted';
+        this.style.background = 'linear-gradient(45deg, #00b894, #00a085)';
+      }, 100);
+    });
   </script>
-</head>
-<body>
-  <p>Redirecting to app…</p>
 </body>
 </html>
