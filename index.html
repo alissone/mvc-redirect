@@ -129,6 +129,29 @@
       margin-top: 1rem;
     }
 
+    .env-indicator {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .env-qa {
+      background: rgba(255, 193, 7, 0.3);
+      border-color: rgba(255, 193, 7, 0.5);
+    }
+
+    .env-dev {
+      background: rgba(40, 167, 69, 0.3);
+      border-color: rgba(40, 167, 69, 0.5);
+    }
+
     .background-shapes {
       position: absolute;
       top: 0;
@@ -210,6 +233,12 @@
         padding: 0.9rem 1.8rem;
         font-size: 1rem;
       }
+
+      .env-indicator {
+        position: static;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
     }
   </style>
 </head>
@@ -250,8 +279,37 @@
     const type = params.get('type');
     const env = params.get('env');
 
+    // Determine the app scheme based on environment
+    let appScheme;
+    let envDisplayName;
+    
+    if (env === 'prod' || env === 'production' || !env) {
+      appScheme = 'com.magicvalleycentral.mvcapp';
+      envDisplayName = 'Production';
+    } else if (env === 'qa' || env === 'development' || env === 'dev') {
+      appScheme = 'com.magicvalleycentral.mvcapp.qa';
+      envDisplayName = env === 'qa' ? 'QA' : 'Development';
+    } else {
+      // Default to QA for unknown environments
+      appScheme = 'com.magicvalleycentral.mvcapp.qa';
+      envDisplayName = 'QA (Default)';
+    }
+
     // Build the deep link URL
-    const deepLink = `com.magicvalleycentral.mvcapp://reset-password/auth/v1/?token=${encodeURIComponent(token || '')}&type=${encodeURIComponent(type || '')}&env=${encodeURIComponent(env || '')}`;
+    const deepLink = `${appScheme}://reset-password/auth/v1/?token=${encodeURIComponent(token || '')}&type=${encodeURIComponent(type || '')}&env=${encodeURIComponent(env || '')}`;
+
+    // Add environment indicator
+    if (env && env !== 'prod' && env !== 'production') {
+      const envIndicator = document.createElement('div');
+      envIndicator.className = `env-indicator env-${env === 'qa' ? 'qa' : 'dev'}`;
+      envIndicator.textContent = envDisplayName;
+      document.querySelector('.container').appendChild(envIndicator);
+    }
+
+    // Debug logging (remove in production)
+    console.log('Environment:', env);
+    console.log('App Scheme:', appScheme);
+    console.log('Deep Link:', deepLink);
 
     // Try immediate redirect
     if (token && type) {
